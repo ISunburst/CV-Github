@@ -1,0 +1,20 @@
+sql = """
+CREATE TABLE "usernames" (
+	"UserId"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"Username"	TEXT,
+	"Firstname"	TEXT,
+	"Surname"	TEXT,
+	"Password"	INTEGER,
+	"Email"	INTEGER
+);
+CREATE TABLE "review" (
+	"ReviewId"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"Reviewtext"	TEXT,
+	"Reviewstars"	INTEGER,
+	"UserId"	INTEGER,
+	FOREIGN KEY(UserId) REFERENCES user(UserId)
+);
+insert into usernames (Username, Firstname, Surname, Password, Email) values ("", "", "", "", ""); #INSERT CUSTOM DATA HERE
+
+insert into review (Reviewtext, Reviewstars, UserId) values ( "", "", ); #INSERT CUSTOM DATA HERE
+"""
