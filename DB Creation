@@ -1,0 +1,44 @@
+# global database name
+#
+database_file = '.db' #ADD NEW DB NAME HERE
+# Delete the database
+# in case it already exists
+#
+if os.path.exists(database_file):
+  os.remove(database_file)
+#
+# Connect to the database
+#
+conn = sqlite3.connect(database_file)
+# Get a cursor pointing to the database
+cursor = conn.cursor()
+# Create the tables
+cursor.executescript(sql)
+# Commit to save everything
+conn.commit()
+# Close the connection to the database
+conn.close()
+
+#
+#
+#
+def query_database(database, query):
+#Queries the database using the database parameter as the database
+#to query and the query parameter as the actual query to issue
+# for SELECT
+	Lconn = sqlite3.connect(database)
+	cur = Lconn.cursor()			# use a local cursor
+	cur.execute(query)
+	rows = cur.fetchall()
+	cur.close()
+	return rows
+#
+# 
+#
+def execute_sql(database, sql_statement):
+#Executes the sql statement to INSERT and UPDATE rows
+	Lconn = sqlite3.connect(database)
+	cur = Lconn.cursor()
+	cur.execute(sql_statement)
+	Lconn.commit()
+	return cur.lastrowid
