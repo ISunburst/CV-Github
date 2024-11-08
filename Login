@@ -1,0 +1,30 @@
+def login_user():  #### TEST WITH 'or 1 = 1; -- 
+	global user_LoggedIn ## variable needed to know who logged in ##
+	if user_textbox.value == "":
+		info("Error", "You must enter a valid username.")
+	elif PW_textbox.value == "":
+		info("Error", "You must enter a password.")
+	else:
+		sqlselect = "SELECT * FROM usernames WHERE Username = '"+user_textbox.value+"'"
+		rows = query_database(database_file, sqlselect)
+		if len(rows) == 0: ### This checks that the user was found ###
+				info("Error","Username/Password not found.")
+		else:
+			###Stored userID is stored as row[0,0]
+			Swawsbucks_loggedin = (rows[0][0]) #we need this
+			storedusername = (rows[0][1])
+			storedpassword = (rows[0][4])
+			if user_textbox.value == storedusername and PW_textbox.value == storedpassword:
+				#now open the review app
+				info("Log in","Success!")
+				open_review()
+			else: info("Error", "Your username/password is incorrect!")
+##########
+#put this part below into the app window
+text = Text(Main_box, text= "Enter username.")
+user_textbox = TextBox(Main_box)
+text_blank = Text(Main_box, text=" ")
+
+text = Text(Main_box, text= "Enter user Password.")
+PW_textbox = TextBox(Main_box, hide_text=True)
+text_blank = Text(Main_box, text=" ")
