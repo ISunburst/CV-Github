@@ -1,0 +1,19 @@
+#def to save review to DB
+def review_send():
+	InsertDataSQL = ("INSERT INTO review(Reviewtext, Reviewstars) VALUES ('"+ str(review_text.value) + "','" + str(review_slider.value))+ "')"
+	execute_sql(database_file, InsertDataSQL)
+	info("Success", "Review uploaded.")
+##########
+#app creation for review window
+W_review = Window(app,title="", height = 600) #ADD IN APP TITLE
+text_blank = Text(W_review, text=" ")
+text_blank = Text(W_review, text=" Please leave your rating and a review detailing why!") 
+text_blank = Text(app, text=" ")
+text_blank = Text(app, text=" ")
+review_slider = Slider(W_review,start = 1, end = 5, width = 200)
+review_text = TextBox(W_review, width = 50, multiline = True, height = 25)
+text_blank = Text(W_review, text=" ")
+app.bg = "#fff6e0" #change this to any colour you want. current one is a beige-colour
+open_button = PushButton(W_review, text = "Send review", command = review_send) # Button to post review
+text_blank = Text(W_review, text=" ")
+back_button = PushButton(W_review, text="Back", command = back_home) # Button to go back to login
