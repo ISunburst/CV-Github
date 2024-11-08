@@ -1,0 +1,48 @@
+#def to confirm account sign up and check parameters such as correct data formatting
+def Account_confirm():
+	if PW_s_textbox.value != PW_confirm_textbox.value:
+		info("Error", "Passwords do not match.")
+	elif user_s_textbox.value.isalpha():
+		if firstname_textbox.value.isalpha() and surname_textbox.value.isalpha():
+			if "@" in email_textbox.value:
+				if user_s_textbox.value != "" and PW_s_textbox.value != "" and firstname_textbox.value != "" and surname_textbox.value != "" and email_textbox.value != "":
+					InsertDataSQL = ("INSERT INTO usernames(Username, Password, Firstname, Surname, Email) VALUES ('"+ str(user_s_textbox.value) + "','" + str(PW_s_textbox.value) + "','" + str(firstname_textbox.value) + "','" + str(surname_textbox.value) + "','" + str(email_textbox.value))+ "')"
+					execute_sql(database_file, InsertDataSQL)
+					info("Success", "Account created.")
+				else:
+					info("Error", "textboxes cannot be blank")
+			else:
+				info("Error", "Email must contain an '@'.")
+		else:
+			info("Error", "Firstname/surname must be strictly alphabetic.")
+	else:
+		info("Error", "Username must be strictly alphabetic.")
+
+##########
+#App creation for sign up window
+W_signup = Window(app,title = "Sign Up", height = 600)
+text_blank = Text(W_review, text=" ")
+text_blank = Text(W_signup, text=" Greetings! Welcome to the Sign Up page.")
+text_blank = Text(W_signup, text=" ")
+text = Text(W_signup, text= "Enter username.")
+user_s_textbox = TextBox(W_signup)
+text_blank = Text(W_review, text=" ")
+text = Text(W_signup, text= "Enter user Password.")
+PW_s_textbox = TextBox(W_signup, hide_text=True)
+text_blank = Text(W_signup, text=" ")
+text = Text(W_signup, text= "Confirm user Password.")
+PW_confirm_textbox = TextBox(W_signup, hide_text=True)
+text_blank = Text(W_signup, text=" ")
+text = Text(W_signup, text= "Enter first name.")
+firstname_textbox = TextBox(W_signup)
+text_blank = Text(W_review, text=" ")
+text = Text(W_signup, text= "Enter surname.")
+surname_textbox = TextBox(W_signup)
+text_blank = Text(W_signup, text=" ")
+text = Text(W_signup, text= "Enter email.")
+email_textbox = TextBox(W_signup)
+text_blank = Text(W_signup, text=" ")
+app.bg = "#fff6e0" #change this colour if you want. current colour is beige
+open_button = PushButton(W_signup, text = "Sign Up", command = Account_confirm) # Button to confirm password and create account
+text_blank = Text(W_signup, text=" ")
+back_button = PushButton(W_signup, text="Back", command = back_home) # Button to go back to login
